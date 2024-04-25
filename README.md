@@ -1,2 +1,2 @@
 # fiap-tech-challenge-embrapa
-Tech Challenge dp gropo 53 - FIAP
+Tech Challenge do grupo 53 - FIAP
