@@ -8,7 +8,7 @@ import logging
 class DownloadService:
     def __init__(self, db):
         self.db = db
-        self.base_url = "http://vitibrasil.cnpuv.embrapa.br/download/"
+        self.base_url = "https://raw.githubusercontent.com/pedroalbani/fiap-tech-challenge-embrapa/main/dados_vitibrasil/"
         self.csv_file_info = {
             'ExpEspumantes': ';',
             'ExpSuco': ';',
@@ -35,6 +35,7 @@ class DownloadService:
             self.db[collection_name].delete_many({})
 
             url = f"{self.base_url}{csvFileName}.csv"
+            print(url)  
             try:
                 response = requests.get(url)
                 response.raise_for_status()
