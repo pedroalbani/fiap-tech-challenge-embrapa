@@ -9,24 +9,14 @@ class DownloadService:
     def __init__(self, db):
         self.db = db
         self.base_url = "https://raw.githubusercontent.com/pedroalbani/fiap-tech-challenge-embrapa/main/dados_vitibrasil/"
-        self.csv_file_info = {
-            'ExpEspumantes': ';',
-            'ExpSuco': ';',
-            'ExpUva': ';',
-            'ExpVinho': ';',
-            'ImpEspumantes': ';',
-            'ImpFrescas': ';',
-            'ImpPassas': ';',
-            'ImpSuco': ';',
-            'ImpVinhos': ';',
-            'ProcessaAmericanas': '\t',
-            'ProcessaMesa': '\t',
-            'ProcessaSemclass': '\t',
-            'ProcessaViniferas': '\t',
-            'Producao': ';',
-            'Comercio': ';'
-        }
-        
+        self.csv_file_info = self.fetch_csv_info()
+      
+    def fetch_csv_info(self):
+        csv_info = {}
+        for doc in self.db.csv_data.find():
+            csv_info[doc['name']] = doc['delimiter']
+        return csv_info  
+    
     def download_and_save(self):
         results = {}
         for csvFileName, delimiter in self.csv_file_info.items():
@@ -68,6 +58,8 @@ def get_download_service():
     db_name = "fiap_embrapa" 
     client = MongoClient(mongo_uri)
     db = client[db_name]
+    db.teste.insert_one({"teste": "teste"})
+    db.teste.delete_one({"teste": "teste"})
     return DownloadService(db)
 
 if __name__ == "__main__":
