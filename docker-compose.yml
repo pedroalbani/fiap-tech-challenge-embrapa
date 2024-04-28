@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  mongo:
+    container_name: mongo_db
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=embrapa
+      - MONGO_INITDB_ROOT_PASSWORD=embrapaPwd
+
+volumes:
+  mongo-data:
