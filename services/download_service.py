@@ -32,9 +32,6 @@ class DownloadService:
                 df = pd.read_csv(StringIO(response.text), delimiter=delimiter, encoding='utf-8')
 
                 if not df.empty:
-                    for col in df.columns:
-                        df[col] = df[col].map(lambda x: x.encode('utf-8') if isinstance(x, str) else x)
-
                     self.db[collection_name].insert_many(df.to_dict('records'))
                     results[csvFileName] = df.head().to_dict('records')
                 else:
