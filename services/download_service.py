@@ -8,47 +8,54 @@ import logging
 class DownloadService:
     def __init__(self, db):
         self.db = db
-        self.base_url = "https://raw.githubusercontent.com/pedroalbani/fiap-tech-challenge-embrapa/main/dados_vitibrasil/"
         self.csv_file_info = self.fetch_csv_info()
       
     def fetch_csv_info(self):
         csv_info = {}
         for doc in self.db.csv_data.find():
-            csv_info[doc['name']] = doc['delimiter']
+            csv_info[doc['name']] = doc
         return csv_info  
     
     def download_and_save(self):
         results = {}
-        for csvFileName, delimiter in self.csv_file_info.items():
+        for csvFileName, doc in self.csv_file_info.items():
+            df = pd.DataFrame()
             collection_name = csvFileName # O nome da coleção é o mesmo do arquivo 
             logging.info(f"Baixando {csvFileName} e salvando em {collection_name}")
             self.db[collection_name].delete_many({})
-
-            url = f"{self.base_url}{csvFileName}.csv"
-            print(url)  
+            url = doc['url']
             try:
                 response = requests.get(url)
                 response.raise_for_status()
-                df = pd.read_csv(StringIO(response.text), delimiter=delimiter, encoding='utf-8')
-
+                df = pd.read_csv(StringIO(response.text), delimiter=doc['delimiter'], encoding='utf-8')
+                
                 if not df.empty:
-                    self.db[collection_name].insert_many(df.to_dict('records'))
-                    results[csvFileName] = df.head().to_dict('records')
+                    self.db[collection_name].insert_many(df.to_dict('records'))                    
+                    results[csvFileName] =  self.make_response(url, df, True, 'Dados inseridos com sucesso.')
                 else:
                     logging.warning(f"Nenhum dado para inserir em {collection_name}")
-                    results[csvFileName] = "Nenhum dado disponível"
+                    results[csvFileName] = self.make_response(url, df, True, "Sem dados para inserir.")
 
             except requests.exceptions.HTTPError as e:
                 logging.error(f"Erro HTTP ao baixar {csvFileName}: {e}")
-                results[csvFileName] = str(e)
+                results[csvFileName] = self.make_response(url, df, False, str(e))
             except pd.errors.ParserError as e:
                 logging.error(f"Erro ao analisar {csvFileName}: {e}")
-                results[csvFileName] = str(e)
+                results[csvFileName] = self.make_response(url, df, False, str(e))
             except Exception as e:
                 logging.error(f"Erro inesperado com {csvFileName}: {e}")
-                results[csvFileName] = str(e)
+                results[csvFileName] = self.make_response(url, df, False, str(e))
         return results
 
+    def make_response(self, url, df, success, message):
+        csvResponseDetails = {
+                        "count": len(df),
+                        "url": url,
+                        "success": success,
+                        "msg": message
+                    }
+            
+        return csvResponseDetails
 
 def get_download_service():
     mongo_uri = "mongodb://embrapa:embrapaPwd@localhost:27017/"
