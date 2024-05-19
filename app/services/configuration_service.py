@@ -1,17 +1,17 @@
 from pymongo import MongoClient
-from app.config import base_settings
+from app.backend import mongodb_connector
 
 class ConfigurationService:
+
     def __init__(self):
-        settings = base_settings.DatabaseConfig()
-        self.db = MongoClient(settings.getDatabaseURI())[settings.getDatabaseName()]
+        self.db = mongodb_connector.MongoConnector()
 
     def getConfiguration(self,tipo_operacao, sub_tipo = None):
         config_obj = {}
         config_obj["tipo_operacao"] = tipo_operacao
         if sub_tipo != None:
             config_obj["sub_tipos.sub_tipo_operacao"] = sub_tipo
-        configuracao = self.db["configuracao"].find_one(config_obj)
+        configuracao = self.db.buscar("configuracao",config_obj)
         configuracao["pandas"] = {"delimiter": configuracao["delimitador"],"encoding":"UTF-8"}
         configuracao["renomear_colunas"] = {}
         tipo_operacao = str(tipo_operacao).lower()
