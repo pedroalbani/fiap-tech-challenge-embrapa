@@ -10,22 +10,33 @@ class ComercioStrategy(Strategy):
     def transform(self, dataframe: pd.DataFrame,operacao):
         lista_comercio = []
         colunas = dataframe.columns.tolist()
-        colunas.remove("pais")
-        colunas = set([x.split("_") for x in colunas])
+        if "pais" in colunas:
+            colunas.remove("pais")
+        if "Id" in colunas:
+            colunas.remove("Id")
+        colunas = sorted(set([x.split("_")[0] for x in colunas]))
 
         for linha in dataframe.iterrows():
-            lista_comercio += [comercio.Comercio(linha[1]["pais"], x, int(linha[1][x+"_quantidade"]),float(linha[1][x+"_valor"]), operacao) for x in colunas]
+            try:
+                lista_comercio += [comercio.Comercio(linha[1]["pais"], x, int(linha[1][x+"_quantidade"]),float(linha[1][x+"_valor"]), operacao) for x in colunas]
+            except ValueError:
+                pass
 
         return lista_comercio
 class ManufaturaStrategy(Strategy):
     def transform(self, dataframe: pd.DataFrame, operacao):
         lista_manufatura = []
         colunas = dataframe.columns.tolist()
-        colunas.remove("produto")
-        colunas.remove("chave")
+        if "produto" in colunas:
+            colunas.remove("produto")
+        if "chave" in colunas:
+            colunas.remove("chave")
+        if "id" in colunas:
+            colunas.remove("id")
 
         for linha in dataframe.iterrows():
-            lista_manufatura += [manufatura.Manufatura(linha[1]["produto"], linha[1].get("chave",None), int(x),int(linha[1][x]),operacao) for x in colunas]
+            lista_manufatura += [manufatura.Manufatura(linha[1]["produto"], linha[1].get("chave",None), int(x),int(linha[1][x]),operacao) for x in colunas if str(linha[1][x]).isdecimal()]
+
 
         return lista_manufatura
 

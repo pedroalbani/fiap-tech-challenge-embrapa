@@ -9,29 +9,35 @@ class DataDownloadService:
         self.settings = configuration_service.ConfigurationService()
         self.app_setting = AppConfiguration()
 
-    def downloadData(self, tipoOperacao, subCategoria= None):
-        configuracao = self.settings.getConfiguration(tipoOperacao)
-        if (subCategoria == None):
-            subCategoria = ""
-        nomeArquivo = tipoOperacao + subCategoria + ".csv"
-        try:
-            dados = pd.read_csv(self.app_setting.url_arquivo + nomeArquivo, **configuracao["pandas"])
-        except error.HTTPError:
-            dados = pd.read_csv(self.app_setting.url_fallback + nomeArquivo, **configuracao["pandas"])
-
-        if len(configuracao["renomear_colunas"].keys()) > 0:
-            dados.rename(configuracao["renomear_colunas"])
-
-        if str(configuracao["tipo_objeto"]).lower() == "comercio":
-            transformador = data_transformation_service.DataTransformation(
-                data_transformation_service.ComercioStrategy())
+    def downloadData(self, tipo_operacao, sub_categoria= None):
+        configuracao = self.settings.getConfiguration(tipo_operacao, sub_categoria)
+        if 'sub_tipos' not in configuracao.keys():
+            sub_categorias = [""]
+        elif sub_categoria != None:
+            sub_categorias = [x["label_arquivo"] for x in configuracao["sub_tipos"] if x["sub_tipo_operacao"] == sub_categoria]
         else:
-            transformador = data_transformation_service.DataTransformation(
-                data_transformation_service.ManufaturaStrategy())
+            sub_categorias = [x["label_arquivo"] for x in configuracao["sub_tipos"]]
 
-        modelos = transformador.transform(dados, tipoOperacao)
+        modelos = []
+
+        for subcat_atual in sub_categorias:
+
+            nomeArquivo = configuracao["label_arquivo"] + subcat_atual + ".csv"
+            try:
+                dados = pd.read_csv(self.app_setting.url_arquivo + nomeArquivo, **configuracao["pandas"])
+            except error.HTTPError:
+                dados = pd.read_csv(self.app_setting.url_fallback + nomeArquivo, **configuracao["pandas"])
+
+            if len(configuracao["renomear_colunas"].keys()) > 0:
+                dados = dados.rename(columns=configuracao["renomear_colunas"])
+
+            if str(configuracao["tipo_objeto"]).lower() == "comercio":
+                transformador = data_transformation_service.DataTransformation(
+                    data_transformation_service.ComercioStrategy())
+            else:
+                transformador = data_transformation_service.DataTransformation(
+                    data_transformation_service.ManufaturaStrategy())
+
+            modelos+=transformador.transform(dados, tipo_operacao)
 
         return modelos
-
-download = DataDownloadService()
-download.downloadData("Comercio")
