@@ -1,13 +1,13 @@
 from app.backend import mongodb_connector
 
-class ConfigurationService:
+class ConfiguracaoService:
 
     def __init__(self):
         self.db = mongodb_connector.MongoConnector()
 
-    def get_configuration(self, tipo_operacao, sub_tipo = None):
+    def obter_configuracao_extracao(self, tipo_operacao, sub_tipo = None):
 
-        configuracao = self.get_only_configuration(tipo_operacao, sub_tipo)
+        configuracao = self.obter_configuracao(tipo_operacao, sub_tipo)
         configuracao["pandas"] = {"delimiter": configuracao["delimitador"], "encoding":"UTF-8"}
         configuracao["renomear_colunas"] = {}
         tipo_operacao = str(tipo_operacao).lower()
@@ -31,12 +31,12 @@ class ConfigurationService:
 
         return configuracao
 
-    def list_configuration(self):
+    def listar_configuracoes(self):
         configuracoes = self.db.listar("configuracao")
 
         return configuracoes
     
-    def get_only_configuration(self, tipo_operacao, sub_tipo = None):
+    def obter_configuracao(self, tipo_operacao, sub_tipo = None):
         config_obj = {}
         config_obj["tipo_operacao"] = tipo_operacao
         if sub_tipo != None:

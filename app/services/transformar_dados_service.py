@@ -1,13 +1,13 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from app.models import comercio,manufatura
 import pandas as pd
 
 class Strategy(ABC):
-    def transform(self, dataframe, operacao, subcat_operacao):
+    def transformar(self, dataframe, operacao, subcat_operacao):
         pass
 
 class ComercioStrategy(Strategy):
-    def transform(self, dataframe: pd.DataFrame,operacao,subcat_operacao):
+    def transformar(self, dataframe: pd.DataFrame,operacao,subcat_operacao):
         lista_comercio = []
         colunas = dataframe.columns.tolist()
         if "pais" in colunas:
@@ -26,7 +26,7 @@ class ComercioStrategy(Strategy):
         return lista_comercio
 
 class ManufaturaStrategy(Strategy):
-    def transform(self, dataframe: pd.DataFrame, operacao,subcat_operacao):
+    def transformar(self, dataframe: pd.DataFrame, operacao,subcat_operacao):
         lista_manufatura = []
         colunas = dataframe.columns.tolist()
         if "produto" in colunas:
@@ -42,9 +42,9 @@ class ManufaturaStrategy(Strategy):
 
         return lista_manufatura
 
-class DataTransformation():
+class TransformarDado():
     def __init__(self, strategy: Strategy) -> None:
         self._strategy = strategy
 
-    def transform(self,dt,operacao,subcat_operacao) -> None:
+    def transformar(self,dt,operacao,subcat_operacao) -> None:
         return self._strategy.transform(dt, operacao,subcat_operacao)

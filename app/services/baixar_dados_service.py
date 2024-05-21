@@ -1,12 +1,12 @@
-from app.services import configuration_service, data_transformation_service
+from app.services import configuracao_service, transformar_dados_service
 from app.config.base_settings import AppConfiguration
 from app.backend.mongodb_connector import MongoConnector
 import pandas as pd
 from urllib import error
 
-class DataDownloadService:
+class BaixarDadosService:
     def __init__(self):
-        self.settings = configuration_service.ConfigurationService()
+        self.settings = configuracao_service.ConfiguracaoService()
         self.app_setting = AppConfiguration()
         self.db = MongoConnector()
 
@@ -29,7 +29,7 @@ class DataDownloadService:
             return self.criar_response(dados, sucesso, mensagem)
 
     def download_data(self, tipo_operacao, sub_categoria):
-        configuracao = self.settings.get_configuration(tipo_operacao, sub_categoria)
+        configuracao = self.settings.obter_configuracao_extracao(tipo_operacao, sub_categoria)
 
         if 'sub_tipos' not in configuracao.keys():
             sub_categorias_lst = [{"label_arquivo":"","categoria":""}]
@@ -52,11 +52,11 @@ class DataDownloadService:
                 dados = dados.rename(columns=configuracao["renomear_colunas"])
 
             if str(configuracao["tipo_objeto"]).lower() == "comercio":
-                transformador = data_transformation_service.DataTransformation(
-                    data_transformation_service.ComercioStrategy())
+                transformador = transformar_dados_service.TransformarDado(
+                    transformar_dados_service.ComercioStrategy())
             else:
-                transformador = data_transformation_service.DataTransformation(
-                    data_transformation_service.ManufaturaStrategy())
+                transformador = transformar_dados_service.TransformarDado(
+                    transformar_dados_service.ManufaturaStrategy())
 
             modelos += transformador.transform(dados, tipo_operacao, subcat_atual["categoria"])
 
