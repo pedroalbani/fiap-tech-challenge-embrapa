@@ -1,4 +1,3 @@
-from pymongo import MongoClient
 from app.backend import mongodb_connector
 
 class ConfigurationService:
@@ -6,13 +5,10 @@ class ConfigurationService:
     def __init__(self):
         self.db = mongodb_connector.MongoConnector()
 
-    def getConfiguration(self,tipo_operacao, sub_tipo = None):
-        config_obj = {}
-        config_obj["tipo_operacao"] = tipo_operacao
-        if sub_tipo != None:
-            config_obj["sub_tipos.sub_tipo_operacao"] = sub_tipo
-        configuracao = self.db.buscar("configuracao",config_obj)
-        configuracao["pandas"] = {"delimiter": configuracao["delimitador"],"encoding":"UTF-8"}
+    def get_configuration(self, tipo_operacao, sub_tipo = None):
+
+        configuracao = self.get_only_configuration(tipo_operacao, sub_tipo)
+        configuracao["pandas"] = {"delimiter": configuracao["delimitador"], "encoding":"UTF-8"}
         configuracao["renomear_colunas"] = {}
         tipo_operacao = str(tipo_operacao).lower()
 
@@ -30,8 +26,22 @@ class ConfigurationService:
             configuracao["renomear_colunas"]["País"] = "pais"
             for x in range(1970,2024):
                 ano = str(x)
-                configuracao["renomear_colunas"][ano] = ano+"_quantidade"
-                configuracao["renomear_colunas"][ano + ".1"] = ano+"_valor"
+                configuracao["renomear_colunas"][ano] = ano + "_quantidade"
+                configuracao["renomear_colunas"][ano + ".1"] = ano + "_valor"
 
+        return configuracao
+
+    def list_configuration(self):
+        configuracoes = self.db.listar("configuracao")
+
+        return configuracoes
+    
+    def get_only_configuration(self, tipo_operacao, sub_tipo = None):
+        config_obj = {}
+        config_obj["tipo_operacao"] = tipo_operacao
+        if sub_tipo != None:
+            config_obj["sub_tipos.sub_tipo_operacao"] = sub_tipo
+
+        configuracao = self.db.buscar("configuracao", config_obj)
 
         return configuracao

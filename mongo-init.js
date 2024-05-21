@@ -1,3 +1,7 @@
+if (db.getSiblingDB('fiap_embrapa') == null) {
+  db.c
+}
+
 db = db.getSiblingDB('admin');
 if (db.getUser('embrapa') === null) {
   db.createUser({
@@ -106,4 +110,4 @@ var records = [{
   ]
 }];
 
-db.csv_data.insertMany(records);
+db.configuracao.insertMany(records);

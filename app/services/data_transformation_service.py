@@ -24,6 +24,7 @@ class ComercioStrategy(Strategy):
                 pass
 
         return lista_comercio
+
 class ManufaturaStrategy(Strategy):
     def transform(self, dataframe: pd.DataFrame, operacao,subcat_operacao):
         lista_manufatura = []
@@ -36,9 +37,8 @@ class ManufaturaStrategy(Strategy):
             colunas.remove("id")
 
         for linha in dataframe.iterrows():
-            dados_atuais = [manufatura.Manufatura(linha[1]["produto"], linha[1].get("chave",None), int(x),int(linha[1][x]),operacao,subcat_operacao) for x in colunas if str(linha[1][x]).isdecimal()]
-            lista_manufatura+= [x.__dict__ for x in dados_atuais]
-
+            dados_atuais = [manufatura.Manufatura(linha[1]["produto"], linha[1].get("chave",None), int(x), int(linha[1][x]), operacao, subcat_operacao) for x in colunas if str(linha[1][x]).isdecimal()]
+            lista_manufatura += [x.__dict__ for x in dados_atuais]
 
         return lista_manufatura
 
@@ -48,4 +48,3 @@ class DataTransformation():
 
     def transform(self,dt,operacao,subcat_operacao) -> None:
         return self._strategy.transform(dt, operacao,subcat_operacao)
-
