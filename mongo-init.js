@@ -106,4 +106,4 @@ var records = [{
   ]
 }];
 
-db.csv_data.insertMany(records);
+db.configuracao.insertMany(records);
