@@ -11,7 +11,7 @@ class BaixarDadosService:
         self.db = MongoConnector()
 
     def importar(self, tipo_operacao, sub_categoria = None, atualizar_base = True):
-        sucesso = True
+        sucesso = False
 
         try:
             tipo_objeto, dados = self.download_data(tipo_operacao, sub_categoria)
@@ -20,6 +20,8 @@ class BaixarDadosService:
             if atualizar_base:
                 self.atualizar_base(dados, tipo_objeto, tipo_operacao, sub_categoria)
                 mensagem = " Obs: a base de dados foi atualizada."
+
+            sucesso = True
 
         except Exception as ex:
             mensagem = "Não foi possível concluir a requisição. Mensagem técnica: " + str(ex)

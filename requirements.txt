@@ -4,3 +4,4 @@ pymongo==4.7.0
 requests
 pandas
 detect-delimiter
+python-dotenv==1.0.1
