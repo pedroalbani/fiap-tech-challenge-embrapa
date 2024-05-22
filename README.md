@@ -59,7 +59,7 @@ docker run -d -p 8000:8000 --name embrapa-container embrapa-api
 docker ps
 ```
 
-### Acessar a aplicação
+### Acesse a aplicação
 A aplicação poderá ser acessada clicando [aqui](http://localhost:8000)
 
 ### Comandos utéis
