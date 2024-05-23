@@ -36,7 +36,7 @@ docker-compose up -d
 uvicorn app.main:app --reload
 ```
 
-Se tudo rodou corretamente e nenhum erro foi lançado, abra o seu navegador clicando [aqui](http://localhost:8000).
+Se tudo rodou corretamente e nenhum erro foi lançado, abra o seu navegador clicando [aqui](http://localhost:8000/docs).
 
 ## Testes
 
@@ -60,7 +60,7 @@ docker ps
 ```
 
 ### Acesse a aplicação
-A aplicação poderá ser acessada clicando [aqui](http://localhost:8000)
+A aplicação poderá ser acessada clicando [aqui](http://localhost:8000/docs)
 
 ### Comandos utéis
 
