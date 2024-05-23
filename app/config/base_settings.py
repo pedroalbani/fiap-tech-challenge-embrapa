@@ -19,5 +19,5 @@ class DatabaseConfig:
 
 class AppConfiguration:
     def __init__(self):
-        self.url_arquivo = 'http://vitibrasil.cnpuv.embrapa.br/download/'
-        self.url_fallback = 'https://raw.githubusercontent.com/pedroalbani/fiap-tech-challenge-embrapa/main/dados_vitibrasil/'
+        self.url_arquivo = os.getenv('BASEURL_ARQUIVO_IMPORTACAO')
+        self.url_fallback = os.getenv('BASEURL_ARQUIVO_FALLBACK')
