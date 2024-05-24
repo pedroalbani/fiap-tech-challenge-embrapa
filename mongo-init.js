@@ -22,7 +22,7 @@ if (!db.getCollectionNames().includes('manufatura')) {
 
 // Adicionar registros com nome e delimitador
 var records = [{
-  "tipo_operacao": "Comercio",
+  "tipo_operacao": "Comercializacao",
   "label_arquivo": "Comercio",
   "delimitador": ";",
   "tipo_objeto": "manufatura"

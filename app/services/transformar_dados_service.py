@@ -47,4 +47,4 @@ class TransformarDado():
         self._strategy = strategy
 
     def transformar(self,dt,operacao,subcat_operacao) -> None:
-        return self._strategy.transform(dt, operacao,subcat_operacao)
+        return self._strategy.transformar(dt, operacao,subcat_operacao)

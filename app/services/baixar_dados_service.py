@@ -60,7 +60,7 @@ class BaixarDadosService:
                 transformador = transformar_dados_service.TransformarDado(
                     transformar_dados_service.ManufaturaStrategy())
 
-            modelos += transformador.transform(dados, tipo_operacao, subcat_atual["categoria"])
+            modelos += transformador.transformar(dados, tipo_operacao, subcat_atual["categoria"])
 
         return configuracao["tipo_objeto"], modelos
 
