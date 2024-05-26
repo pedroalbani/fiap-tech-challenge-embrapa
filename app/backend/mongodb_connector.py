@@ -1,9 +1,12 @@
 from pymongo import MongoClient
 from app.config import base_settings
+
 class MongoConnector:
-    def __init__(self):
-        settings = base_settings.DatabaseConfig()
-        self.db = MongoClient(settings.get_database_url())[settings.get_database_name()]
+    def __init__(self, timeoutMs=None):
+        db_settings = base_settings.DatabaseConfig()
+        timeoutMs = timeoutMs if timeoutMs is not None else db_settings.get_database_timeout_ms()
+
+        self.db = MongoClient(db_settings.get_database_url(), serverSelectionTimeoutMS=timeoutMs)[db_settings.get_database_name()]
 
     def salvar(self, collection, dados):
         return self.db[collection].insert_many(dados)
