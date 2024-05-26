@@ -15,5 +15,5 @@ app.include_router(configuracao_route, dependencies=[Depends(get_current_active_
 app.include_router(importar_route, dependencies=[Depends(get_current_active_user)])
 app.include_router(manufatura_route, dependencies=[Depends(get_current_active_user)])
 app.include_router(comercio_route, dependencies=[Depends(get_current_active_user)])
-app.include_router(infra_route, dependencies=[Depends(get_current_active_user)])
+app.include_router(infra_route)
 app.include_router(auth_route, prefix="/auth") 
