@@ -1,11 +1,11 @@
-from app.backend import mongodb_connector
+from app.backend import mongodb_connector,query_builder
 
 class ManufaturaService:
 
     def __init__(self):
         self.db = mongodb_connector.MongoConnector()
-    
-    def listar_manufaturas(self):
-        manufaturas = self.db.listar("manufatura")
+        self.query_builder = query_builder.QueryBuilder()
+    def listar_manufaturas(self,filtro):
+        manufaturas = self.db.listar("manufatura",filtro)
 
         return manufaturas

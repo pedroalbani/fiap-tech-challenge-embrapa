@@ -44,11 +44,11 @@ class BaixarDadosService:
 
         for subcat_atual in sub_categorias_lst:
 
-            nomeArquivo = configuracao["label_arquivo"] + subcat_atual["label_arquivo"] + ".csv"
+            nome_arquivo = configuracao["label_arquivo"] + subcat_atual["label_arquivo"] + ".csv"
             try:
-                dados = pd.read_csv(self.app_setting.url_arquivo + nomeArquivo, **configuracao["pandas"])
+                dados = pd.read_csv(self.app_setting.url_arquivo + nome_arquivo, **configuracao["pandas"])
             except error.HTTPError:
-                dados = pd.read_csv(self.app_setting.url_fallback + nomeArquivo, **configuracao["pandas"])
+                dados = pd.read_csv(self.app_setting.url_fallback + nome_arquivo, **configuracao["pandas"])
 
             if len(configuracao["renomear_colunas"].keys()) > 0:
                 dados = dados.rename(columns=configuracao["renomear_colunas"])
