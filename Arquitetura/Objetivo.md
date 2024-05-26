@@ -25,7 +25,7 @@ Proposição de uma solução que permita a ingestão, armazenamento e disponibi
   - Padronização dos dados obtidos.
 - Banco de Dados (MongoDB):
   - Armazenamento dos dados coletados de forma estruturada e eficiente. 
-- Serviço de Autenticação (OAuth2/JWT):
+- Serviço de Autenticação (JWT):
   - Gerenciamento de autenticação e autorização dos usuários da API.
 - Modelo de Machine Learning (Futuro):
   - Endpoint para consumo dos dados armazenados para treinamento e predições.
