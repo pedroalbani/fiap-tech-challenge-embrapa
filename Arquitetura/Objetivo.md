@@ -32,4 +32,4 @@ Proposição de uma solução que permita a ingestão, armazenamento e disponibi
 
 ### Contexto
 
-![Diagrama de Contexto](Arquitetura/diagrama-contexto.png)
+<img src="Arquitetura/diagrama-contexto.png" alt="Diagrama de Contexto">
