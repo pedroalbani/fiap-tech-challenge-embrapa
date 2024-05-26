@@ -6,7 +6,7 @@ Diagrama em andamento em: [Mural](https://app.mural.co/t/albani7053/m/albani7053
 ## Objetivo 
 A Embrapa está interessada em oferecer acesso público a seus dados de viticultura por meio de uma API. Os dados fornecidos são sobre produção de vinhos, produção de uva, processamento, comercialização, importação e exportação de vinho e uvas do Brasil com o objetivo de fornecê-los a pesquisadores, viticultores e ao público em geral e também servirá como base para futuros modelos de Machine Learning que podem utilizar esses dados para análises e previsões.
 A API deve acessar sempre que solicitado os dados disponíveis no site da Embrapa, armazená-los em um banco de dados MongoDB. Deve possuir endpoints para que os usuários possam consultar esses dados de forma performática e organizada.
-Além disso, a API deverá utilizar OAuth2/JWT para autenticar e permitir acessos de usuários registrados.
+Além disso, a API deverá utilizar JWT para autenticar e permitir acessos de usuários registrados.
 
 ## Cenário Atual (AS-IS)
 Atualmente, os dados de vitivinicultura da Embrapa estão disponíveis apenas por meio do seu site oficial, o que pode dificultar o acesso e a análise sistemática desses dados por parte de pesquisadores e outros interessados. 
