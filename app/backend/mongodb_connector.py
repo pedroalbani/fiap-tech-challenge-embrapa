@@ -11,5 +11,5 @@ class MongoConnector:
         return self.db[collection].delete_many(filtro)
     def buscar(self, collection, criterio_busca):
         return self.db[collection].find_one(criterio_busca)
-    def listar(self, collection):
-        return self.db[collection].find()
+    def listar(self, collection,filtro):
+        return self.db[collection].find(filtro)
