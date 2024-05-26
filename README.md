@@ -1,6 +1,12 @@
 # fiap-tech-challenge-embrapa
 Tech Challenge do grupo 53 - FIAP
 
+## Objetivos e Arquitetura
+
+[Acesse o documento sobre o Objetivo](Arquitetura/Objetivo.md)
+
+[Acesse o documento sobre a Arquitetura](Arquitetura/Arquitetura.md)
+
 ## Instalação
 
 Um passo a passo que informa o que você deve executar para ter um ambiente de desenvolvimento em execução localmente:
