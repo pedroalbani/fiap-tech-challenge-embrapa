@@ -6,9 +6,9 @@ class QueryBuilder:
         self.padrao_param_er = "(?<=])(\d*)"
         self.operacoes_aceitas = ["$gt","$lt","$eq","$gte","$lte"]
 
-    def escrever_query(self,parametros:List[str]):
+    def escrever_filtro_numerico(self,parametros:List[str]):
         try:
-            query = {'$' + re.search(self.padrao_operador_er, x).group(1): float(re.search(self.padrao_param_er, x).group(1)) for x in parametros}
+            query = {'$' + re.search(self.padrao_operador_er, x).group(1).lower(): float(re.search(self.padrao_param_er, x).group(1)) for x in parametros}
         except:
             raise Exception("Um filtro inesperado/incorreto foi adicionado a sua requisição.")
 
@@ -17,3 +17,8 @@ class QueryBuilder:
             raise Exception("As seguintes operações não são aceitas pelo sistema: " + ",".join(operacoes_inexperadas))
         else:
             return query
+    def escrever_filtro_string(self,parametros:List[str]):
+        query = {}
+        query["$in"] = parametros
+
+        return query
