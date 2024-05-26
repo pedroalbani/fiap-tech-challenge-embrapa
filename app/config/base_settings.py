@@ -5,8 +5,8 @@ load_dotenv()
 
 class DatabaseConfig:
     def __init__(self):
-        self.mongo_host = os.getenv('MONGO_HOST')
-        self.mongo_port = os.getenv('MONGO_PORT')
+        self.mongo_host = os.getenv('MONGO_HOST') or "localhost"
+        self.mongo_port = os.getenv('MONGO_PORT') or 27017
         self.mongo_username = os.getenv('MONGO_USERNAME')
         self.mongo_password = os.getenv('MONGO_PASSWORD')
         self.mongo_database = os.getenv('MONGO_DATABASE')
