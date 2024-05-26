@@ -33,7 +33,7 @@ Justificativa: Swagger proporciona uma maneira clara e interativa de visualizar 
 
 ### Deploy
 
-Decisão: A solução será publicada em serviços de cloud da Azure utilizando containers Docker.
+Decisão: A solução será publicada em serviços de cloud da Amazon utilizando containers Docker.
 Justificativa: (FIAP LIBEROU) As plataformas de cloud oferecem escalabilidade, confiabilidade e ferramentas integradas para gerenciamento e monitoramento da aplicação.
 
 ### Bibliotecas Utilizadas
