@@ -5,7 +5,7 @@ from bson import json_util
 import json
 from typing import List
 
-comercio_route = APIRouter()
+comercio_route = APIRouter(tags=["listagem"])
 
 def criar_instancia_de_servico():
     return ComercioService()

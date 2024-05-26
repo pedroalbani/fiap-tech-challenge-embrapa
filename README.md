@@ -1,40 +1,76 @@
 # fiap-tech-challenge-embrapa
 Tech Challenge do grupo 53 - FIAP
 
-### Instalação
+## Instalação
 
-Um passo a passo que informa o que você deve executar para ter um ambiente de desenvolvimento em execução:
+Um passo a passo que informa o que você deve executar para ter um ambiente de desenvolvimento em execução localmente:
 
-```bash
-# Clonar o repositório
+1. Clone o repositório
+```sh
 git clone https://github.com/pedroalbani/fiap-tech-challenge-embrapa
+
 cd fiap-tech-challenge-embrapa
+```
 
-# Instalar as dependências (para execução local sem Docker)
+2. Configure seu arquivo de ambiente `env`
+
+```sh
+cp .env.example .env
+```
+
+3. Instale as bibliotecas necessárias
+
+```sh
 pip install -r requirements.txt
+```
 
-# Executar a aplicação localmente
+4. Inicie o MongoDB
+
+```sh
+docker-compose up -d
+```
+
+5. Rode o servidor web
+
+```sh
 uvicorn app.main:app --reload
+```
 
-# Comando para executar testes
+Se tudo rodou corretamente e nenhum erro foi lançado, abra o seu navegador clicando [aqui](http://localhost:8000/docs).
+
+## Testes
+
+Para rodar os testes localmente, execute o comando abaixo no seu terminal.
+
+```sh
 python -m unittest discover -s tests
+```
 
-# Instruções para execução com Docker
-## Construir a imagem Docker
+## Rodando a aplicação no Docker
+
+```sh
+# construir a imagem Docker
 docker build -t embrapa-api .
 
-## Rodar a aplicação em um container Docker
+# rodar a imagem recem criada
 docker run -d -p 8000:8000 --name embrapa-container embrapa-api
 
-## Verificar se o container está rodando
+# verificar se o container está rodando
 docker ps
+```
 
-## Acessar a aplicação
-A aplicação pode ser acessada em `http://localhost:8000`
+### Acesse a aplicação
+A aplicação poderá ser acessada clicando [aqui](http://localhost:8000/docs)
 
-## Ver logs do container (opcional)
+### Comandos utéis
+
+```sh
+# mostrar logs do container
 docker logs embrapa-container
 
-## Parar e remover o container (quando necessário)
+# para o container
 docker stop embrapa-container
+
+# excluir o container
 docker rm embrapa-container
+```

@@ -1,11 +1,11 @@
-from typing import Any
 from fastapi import APIRouter, Depends,Query
 from app.services.manufatura_service import ManufaturaService
 from bson import json_util
 import json
 from typing import List
 
-manufatura_route = APIRouter()
+manufatura_route = APIRouter(tags=["listagem"])
+
 def criar_instancia_de_servico():
     return ManufaturaService()
 

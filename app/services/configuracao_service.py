@@ -12,7 +12,7 @@ class ConfiguracaoService:
         configuracao["renomear_colunas"] = {}
         tipo_operacao = str(tipo_operacao).lower()
 
-        if tipo_operacao == "comercio":
+        if tipo_operacao == "comercializacao":
             nomes_coluna = ["chave", "produto"] + [str(x) for x in range(1970, 2024)]
             colunas_usadas = range(1, len(nomes_coluna) + 1)
             configuracao["pandas"]['header'] = None

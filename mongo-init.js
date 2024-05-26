@@ -1,17 +1,13 @@
-if (db.getSiblingDB('fiap_embrapa') == null) {
-  db.c
-}
-
 db = db.getSiblingDB('admin');
-if (db.getUser('embrapa') === null) {
+if (db.getUser(process.env.MONGO_INITDB_ROOT_USERNAME) === null) {
   db.createUser({
-    user: 'embrapa',
-    pwd: 'embrapaPwd',
-    roles: [{ role: 'readWrite', db: 'fiap_embrapa' }]
+    user: process.env.MONGO_INITDB_ROOT_USERNAME,
+    pwd: process.env.MONGO_INITDB_ROOT_PASSWORD,
+    roles: [{ role: 'readWrite', db: process.env.MONGO_INITDB_DATABASE }]
   });
 }
 
-db = db.getSiblingDB('fiap_embrapa');
+db = db.getSiblingDB(process.env.MONGO_INITDB_DATABASE);
 if (!db.getCollectionNames().includes('configuracao')) {
   db.createCollection('configuracao');
 }
@@ -26,7 +22,7 @@ if (!db.getCollectionNames().includes('manufatura')) {
 
 // Adicionar registros com nome e delimitador
 var records = [{
-  "tipo_operacao": "Comercio",
+  "tipo_operacao": "Comercializacao",
   "label_arquivo": "Comercio",
   "delimitador": ";",
   "tipo_objeto": "manufatura"
