@@ -3,9 +3,9 @@ Tech Challenge do grupo 53 - FIAP
 
 ## Objetivos e Arquitetura
 
-[Acesse o documento sobre o Objetivo](Aquitetura/Objetivo.md)
+[Acesse o documento sobre o Objetivo](Arquitetura/Objetivo.md)
 
-[Acesse o documento sobre a Arquitetura](Aquitetura/Arquitetura.md)
+[Acesse o documento sobre a Arquitetura](Arquitetura/Arquitetura.md)
 
 ## Instalação
 
