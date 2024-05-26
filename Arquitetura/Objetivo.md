@@ -30,3 +30,6 @@ Proposição de uma solução que permita a ingestão, armazenamento e disponibi
 - Modelo de Machine Learning (Futuro):
   - Endpoint para consumo dos dados armazenados para treinamento e predições.
 
+### Contexto
+
+![Diagrama de Contexto](Arquitetura/diagrama-contexto.png)
