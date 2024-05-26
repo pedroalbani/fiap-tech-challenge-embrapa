@@ -24,6 +24,18 @@ cd fiap-tech-challenge-embrapa
 cp .env.example .env
 ```
 
+- **MONGO_HOST** (opcional): endereço onde o serviço do mongo estará rodando, se não informado, `localhost` será usado.
+- **MONGO_PORT** (opcional): porta onde o mongodb estará respondendo, se não informado, `27017` será usado.
+- **MONGO_USERNAME**: informe qual nome de usuário utilizar ao conectar com o mongo. Exemplo: `embrapa`.
+- **MONGO_PASSWORD**: informe qual nome de usuário utilizar ao conectar com o mongo. Exemplo: `embrapaPwd`.
+- **MONGO_DATABASE**: informe o nome do banco onde os dados serão armazenados. Exemplo: `fiap_embrapa`.
+- **MONGO_TIMEOUT_MS** (opcional): qual o tempo em milissegundos a aplicação deverá esperar por uma resposta do mongo. Se não informado, o padrão será de `15000ms`.
+- **BASEURL_ARQUIVO_IMPORTACAO**: Qual endereço a aplicação irá olhar para baixar os arquivos a serem importados da Embrapa.
+- **BASEURL_ARQUIVO_FALLBACK**: Qual endereço a aplicação irá olhar caso o serviço da Embrapa esteja fora e, portanto, não seja capaz de baixá-los.
+
+> [!NOTE]
+> Caso esteja usando o `docker-compose` para provisionamento do ambiente, saiba que as configurações usadas no `.env` serão também utilizadas para criação do container e do usuário do mongo. Sendo assim, para provisionar todo o ambiente, será necessário somente ajustar esse arquivo, nada mais.
+
 3. Instale as bibliotecas necessárias
 
 ```sh
