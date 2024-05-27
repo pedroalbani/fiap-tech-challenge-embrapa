@@ -3,7 +3,7 @@ Tech Challenge do grupo 53 - FIAP
 
 ## Vídeo Tutorial
 
-https://youtu.be/YgDQRr7-vS4
+![video](https://youtu.be/YgDQRr7-vS4)
 
 ## Objetivos e Arquitetura
 
