@@ -1,6 +1,10 @@
 # fiap-tech-challenge-embrapa
 Tech Challenge do grupo 53 - FIAP
 
+## Vídeo Tutorial
+
+https://youtu.be/YgDQRr7-vS4
+
 ## Objetivos e Arquitetura
 
 [Acesse o documento sobre o Objetivo](Arquitetura/Objetivo.md)
